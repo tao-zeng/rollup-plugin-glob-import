@@ -8,7 +8,7 @@ const globImport = require('../..');
 const toURLString = require('../../lib/toURLString');
 const transformDirname = require('../../lib/transformDirname');
 
-test('relative-and-absolute', (test) => {
+test('binding', (test) => {
 
 	const input = path.join(__dirname, 'src', 'index.js');
 	const params = {};
@@ -20,7 +20,7 @@ test('relative-and-absolute', (test) => {
 				{transform: transformDirname},
 				globImport({
 					debug: true,
-					loader: (file) => {
+					load: (file) => {
 						return Promise.resolve(transformDirname(fs.readFileSync(file, 'utf8'), file));
 					},
 				}),
@@ -45,8 +45,12 @@ test('relative-and-absolute', (test) => {
 			assert.equal(
 				params.deps1.trim(),
 				[
-					'import \'./deps1/a.js\';',
-					'import \'./deps1/b.js\';',
+					'import _0 from \'./deps1/a.js\';',
+					'import _1 from \'./deps1/b.js\';',
+					'export default {',
+					'	a: _0,',
+					'	b: _1',
+					'};',
 				].join('\n')
 			);
 		});
@@ -56,8 +60,12 @@ test('relative-and-absolute', (test) => {
 			assert.equal(
 				params.deps2.trim(),
 				[
-					`import '${toURLString(__dirname)}/src/deps2/c.js';`,
-					`import '${toURLString(__dirname)}/src/deps2/d.js';`,
+					`import _0 from '${toURLString(__dirname)}/src/deps2/c.js';`,
+					`import _1 from '${toURLString(__dirname)}/src/deps2/d.js';`,
+					'export default {',
+					'	c: _0,',
+					'	d: _1',
+					'};',
 				].join('\n')
 			);
 		});
@@ -90,5 +98,3 @@ test('relative-and-absolute', (test) => {
 	});
 
 });
-
-module.exports = test;

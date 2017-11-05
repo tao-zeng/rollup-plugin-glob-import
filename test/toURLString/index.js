@@ -1,18 +1,19 @@
-function test(run) {
+const assert = require('assert');
+const test = require('@nlib/test');
+const toURLString = require('../../lib/toURLString');
 
-	const assert = require('assert');
-	const toURLString = require('../../src/toURLString');
+test('toURLString', (test) => {
 
-	run('slash', (run) => {
+	test('slash', (test) => {
 
-		run('absolute', () => {
+		test('absolute', () => {
 			const source = '/a/b/c';
 			const expected = '/a/b/c';
 			const actual = toURLString(source);
 			assert.equal(actual, expected);
 		});
 
-		run('relative', () => {
+		test('relative', () => {
 			const source = 'a/b/c';
 			const expected = './a/b/c';
 			const actual = toURLString(source);
@@ -22,23 +23,24 @@ function test(run) {
 	});
 
 	if (process.platform.startsWith('win')) {
-		run('backslash', (run) => {
 
-			run('drive + absolute', () => {
+		test('backslash', (test) => {
+
+			test('drive + absolute', () => {
 				const source = 'C:\\a\\b\\c';
 				const expected = '/a/b/c';
 				const actual = toURLString(source);
 				assert.equal(actual, expected);
 			});
 
-			run('absolute', () => {
+			test('absolute', () => {
 				const source = '\\a\\b\\c';
 				const expected = '/a/b/c';
 				const actual = toURLString(source);
 				assert.equal(actual, expected);
 			});
 
-			run('relative', () => {
+			test('relative', () => {
 				const source = 'a\\b\\c';
 				const expected = './a/b/c';
 				const actual = toURLString(source);
@@ -48,6 +50,4 @@ function test(run) {
 		});
 	}
 
-}
-
-module.exports = test;
+});
