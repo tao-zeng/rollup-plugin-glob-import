@@ -6,7 +6,7 @@ const fs = require('fs');
 const {rollup} = require('rollup');
 const globImport = require('../..');
 const toURLString = require('../../lib/toURLString');
-const transformDirname = require('../../lib/transformDirname');
+const translateDirectoryName = require('../translateDirectoryName');
 
 test('relative-and-absolute', (test) => {
 
@@ -17,11 +17,11 @@ test('relative-and-absolute', (test) => {
 		return rollup({
 			input,
 			plugins: [
-				{transform: transformDirname},
+				{transform: translateDirectoryName},
 				globImport({
 					debug: true,
 					loader: (file) => {
-						return Promise.resolve(transformDirname(fs.readFileSync(file, 'utf8'), file));
+						return Promise.resolve(translateDirectoryName(fs.readFileSync(file, 'utf8'), file));
 					},
 				}),
 				{
