@@ -1,5 +1,6 @@
 const assert = require('assert');
 const path = require('path');
+const console = require('console');
 const test = require('@nlib/test');
 const globFiles = require('../../lib/globFiles');
 const toURLString = require('../../lib/toURLString');
@@ -13,6 +14,7 @@ test('globFiles', (test) => {
 		const pattern = path.join(filesDirectory, 'a.*.js');
 		return globFiles(pattern, importer)
 		.then((result) => {
+			console.log(result);
 			test('finds 2 files', () => {
 				assert.equal(result.size, 2);
 			});
@@ -39,6 +41,7 @@ test('globFiles', (test) => {
 		const pattern = './*.1.js';
 		return globFiles(pattern, importer)
 		.then((result) => {
+			console.log(result);
 			test('finds 2 files', () => {
 				assert.equal(result.size, 2);
 			});
