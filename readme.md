@@ -1,8 +1,9 @@
 # rollup-plugin-glob-import
 
 [![Build Status](https://travis-ci.org/kei-ito/rollup-plugin-glob-import.svg?branch=master)](https://travis-ci.org/kei-ito/rollup-plugin-glob-import)
+[![Build status](https://ci.appveyor.com/api/projects/status/f3arsui0sv55y5bp/branch/master?svg=true)](https://ci.appveyor.com/project/kei-ito/rollup-plugin-glob-import/branch/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b1a12f6323344567bf18e1c5aa833fea)](https://www.codacy.com/app/kei.itof/rollup-plugin-glob-import?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kei-ito/rollup-plugin-glob-import&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b1a12f6323344567bf18e1c5aa833fea)](https://www.codacy.com/app/kei.itof/rollup-plugin-glob-import?utm_source=github.com&utm_medium=referral&utm_content=kei-ito/rollup-plugin-glob-import&utm_campaign=Badge_Coverage)
+[![Coverage Status](https://coveralls.io/repos/github/kei-ito/rollup-plugin-glob-import/badge.svg?branch=6-bindings)](https://coveralls.io/github/kei-ito/rollup-plugin-glob-import?branch=6-bindings)
 [![dependencies Status](https://david-dm.org/kei-ito/rollup-plugin-glob-import/status.svg)](https://david-dm.org/kei-ito/rollup-plugin-glob-import)
 [![devDependencies Status](https://david-dm.org/kei-ito/rollup-plugin-glob-import/dev-status.svg)](https://david-dm.org/kei-ito/rollup-plugin-glob-import?type=dev)
 
