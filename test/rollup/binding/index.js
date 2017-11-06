@@ -4,9 +4,9 @@ const path = require('path');
 const vm = require('vm');
 const fs = require('fs');
 const {rollup} = require('rollup');
-const globImport = require('../..');
-const toURLString = require('../../lib/toURLString');
-const translateDirectoryName = require('../translateDirectoryName');
+const globImport = require('../../..');
+const toURLString = require('../../../lib/toURLString');
+const translateDirectoryName = require('../../translateDirectoryName');
 
 test('binding', (test) => {
 

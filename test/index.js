@@ -2,5 +2,5 @@ require('./toURLString');
 require('./fileSystemPrefix');
 require('./translateDirectoryName');
 require('./globFiles');
-require('./relative-and-absolute');
-// require('./binding');
+require('./rollup/relative-and-absolute');
+// require('./rollup/binding');
