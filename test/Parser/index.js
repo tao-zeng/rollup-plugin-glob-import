@@ -1,5 +1,9 @@
+const fs = require('fs');
+const path = require('path');
 const assert = require('assert');
 const test = require('@nlib/test');
+const promisify = require('@nlib/promisify');
+const readFile = promisify(fs.readFile);
 const Parser = require('../../lib/Parser');
 
 test('Parser', (test) => {
@@ -8,66 +12,84 @@ test('Parser', (test) => {
 		return new Parser();
 	});
 
+	const testFilePath = path.join(__dirname, 'src', 'index.js');
+	let testCode;
+
+	test('load the test code', () => {
+		return readFile(testFilePath, 'utf8')
+		.then((code) => {
+			testCode = code;
+		});
+	});
+
 	test('Parser.prototype.parse', (test) => {
 
-		const code = [
-			'import "a";',
-			'import b from "b";',
-			'import {c} from "c";',
-			'import {d as dd, e as ee} from "de";',
-			'export const p = 0;',
-			'const q = {};',
-			'const r = {};',
-			'const s = {};',
-			'export default q;',
-			'export {q as qq, r as rr, s as ss};',
-		].join('\n');
-
 		const parser = new Parser();
-		const {imports, exports} = parser.parse(code);
+		const {imports, exports} = parser.parse(testCode);
 
 		test('imports', (test) => {
 			test('finds 3 named imports', () => {
 				assert.equal(imports.size, 3);
 			});
-			test('from "b"', (test) => {
-				const b = imports.get('b');
+			test('from ./b.js', (test) => {
+				const map = imports.get('./b.js');
+				test('has b.js', () => {
+					assert(map);
+				});
 				test('default => b', () => {
-					assert.equal(b.get('default'), 'b');
+					assert.equal(map.get('default'), 'b');
 				});
 			});
-			test('from "c"', (test) => {
-				const c = imports.get('c');
+			test('from ./c.js', (test) => {
+				const map = imports.get('./c.js');
+				test('has c.js', () => {
+					assert(map);
+				});
 				test('c => c', () => {
-					assert.equal(c.get('c'), 'c');
+					assert.equal(map.get('c'), 'c');
 				});
 			});
-			test('from "de"', (test) => {
-				const de = imports.get('de');
+			test('from ./de.js', (test) => {
+				const map = imports.get('./de.js');
+				test('has de.js', () => {
+					assert(map);
+				});
 				test('d => dd', () => {
-					assert.equal(de.get('d'), 'dd');
+					assert.equal(map.get('d'), 'dd');
 				});
 				test('e => ee', () => {
-					assert.equal(de.get('e'), 'ee');
+					assert.equal(map.get('e'), 'ee');
 				});
 			});
 		});
 
 		test('exports', (test) => {
-			test('p', () => {
-				assert(exports.has('p'));
-			});
 			test('default', () => {
 				assert(exports.has('default'));
 			});
-			test('qq', () => {
-				assert(exports.has('qq'));
+			test('k', () => {
+				assert(exports.has('k'));
 			});
-			test('rr', () => {
-				assert(exports.has('rr'));
+			test('ll', () => {
+				assert(exports.has('ll'));
 			});
-			test('ss', () => {
-				assert(exports.has('ss'));
+			test('mm', () => {
+				assert(exports.has('mm'));
+			});
+			test('nn', () => {
+				assert(exports.has('nn'));
+			});
+			test('p', () => {
+				assert(exports.has('p'));
+			});
+			test('q', () => {
+				assert(exports.has('q'));
+			});
+			test('r', () => {
+				assert(exports.has('r'));
+			});
+			test('s', () => {
+				assert(exports.has('s'));
 			});
 		});
 
